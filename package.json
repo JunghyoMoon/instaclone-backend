@@ -1,0 +1,23 @@
+{
+    "name": "instaclone-backend",
+    "version": "1.0.0",
+    "repository": "https://github.com/JunghyoMoon/instaclone-backend.git",
+    "author": "JungHyoMoon <dsinhome70@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "dev": "nodemon --exec babel-node server.js",
+        "eject": ""
+    },
+    "dependencies": {
+        "apollo-server": "^3.3.0",
+        "apollo-server-core": "^3.3.0",
+        "graphql": "^15.6.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.15.7",
+        "@babel/core": "^7.15.5",
+        "@babel/node": "^7.15.4",
+        "@babel/preset-env": "^7.15.6",
+        "nodemon": "^2.0.13"
+    }
+}
