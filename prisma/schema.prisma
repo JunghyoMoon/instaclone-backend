@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// prisma는 orm (직접 데이터베이스를 조작할 필요가 없게 해줌.)
+// 여기에 model을 만들고, migrate을 하면 실제 데이터베이스에 같은 테이블이 생성?
+model Movie {
+  id        Int      @id @default(autoincrement())
+  year      String
+  title     Int
+  genre     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

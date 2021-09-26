@@ -4,6 +4,7 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 
 const typeDefs = gql`
     type Movie {
+        id: Int
         title: String
         year: Int
     }
