@@ -10,13 +10,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// prisma는 orm (직접 데이터베이스를 조작할 필요가 없게 해줌.)
-// 여기에 model을 만들고, migrate를 'dev'로 실행하면 실제 데이터베이스에 같은 테이블이 생성?
-model Movie {
+model User {
   id        Int      @id @default(autoincrement())
-  year      Int
-  title     String
-  genre     String?
+  firstName String
+  lastName  String?
+  username  String   @unique
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
