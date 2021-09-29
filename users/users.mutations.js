@@ -8,7 +8,7 @@ export default {
             { firstName, lastName, username, email, password }
         ) => {
             // check if username or email are already exist on DB.
-            const exictingUser = await client.user.findFirst({
+            const existingUser = await client.user.findFirst({
                 where: {
                     OR: [
                         {
