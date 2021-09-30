@@ -6,15 +6,11 @@ export default {
     Mutation: {
         editProfile: async (
             _,
-            {
-                token,
-                firstName,
-                lastName,
-                username,
-                email,
-                password: newPassword,
-            }
+            { firstName, lastName, username, email, password: newPassword },
+            // 모든 resolver가 이용할 수 있는, Apollo가 제공하는 context.
+            { token }
         ) => {
+            console.log(token);
             // token을 key(서명)를 이용하여 해독함.
             const { id } = await jwt.verify(token, process.env.SECRET_KEY);
             let uglyPassword = null;

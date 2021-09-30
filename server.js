@@ -7,6 +7,10 @@ import schema from "./schema";
 
 const server = new ApolloServer({
     schema,
+    // 모든 resolver에서 token에 접근 가능하도록 context에 넣을 예정.
+    context: {
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjMzMDEyMTYwfQ.KL5WxvYHb0wVpeH0W2EH8y5RXtqIIUoSzI7xGq4MJ68",
+    },
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
 
