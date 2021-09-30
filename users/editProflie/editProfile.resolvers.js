@@ -8,11 +8,9 @@ export default {
             _,
             { firstName, lastName, username, email, password: newPassword },
             // 모든 resolver가 이용할 수 있는, Apollo가 제공하는 context.
-            { token }
+            { loggedInUser }
         ) => {
-            console.log(token);
-            // token을 key(서명)를 이용하여 해독함.
-            const { id } = await jwt.verify(token, process.env.SECRET_KEY);
+            console.log(loggedInUser);
             let uglyPassword = null;
             if (newPassword) {
                 uglyPassword = await bcrypt.hash(newPassword, 10);
@@ -20,7 +18,7 @@ export default {
             const updatedUser = await client.user.update({
                 where: {
                     // todo: validate real id
-                    id,
+                    id: loggedInUser.id,
                 },
                 data: {
                     firstName,

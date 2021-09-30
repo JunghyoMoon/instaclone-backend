@@ -4,12 +4,17 @@ import { ApolloServer } from "apollo-server";
 // 아폴로의 개짓거리를 막고, playground로 직행하게 해주는 플러그인.
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import schema from "./schema";
+import { getUser } from "./users/users.utils";
 
 const server = new ApolloServer({
     schema,
-    // 모든 resolver에서 token에 접근 가능하도록 context에 넣을 예정.
-    context: {
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjMzMDEyMTYwfQ.KL5WxvYHb0wVpeH0W2EH8y5RXtqIIUoSzI7xGq4MJ68",
+    // 모든 resolver에서 token에 접근 가능하도록 context에 넣음.
+    // -> 토큰은 자동으로 보낼거고, 'utils.js'에서 토큰의 id로 현재 로그인한 유저를 자동으로 찾을 것.
+    // 브라우저는 http header를 요청할 때마다 자동으로 보냄. -> 프론트에서 header에 받은 token을 넣어서 서버로 보내면 됨.
+    context: async ({ req }) => {
+        return {
+            loggedInUser: await getUser(req.headers.token),
+        };
     },
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
