@@ -29,6 +29,7 @@ export default {
                 { id: user.id },
                 process.env.SECRET_KEY
             );
+            console.log(token);
             return {
                 ok: true,
                 token,

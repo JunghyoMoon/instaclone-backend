@@ -1,12 +1,22 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import client from "../../client";
 
 export default {
     Mutation: {
         editProfile: async (
             _,
-            { firstName, lastName, username, email, password: newPassword }
+            {
+                token,
+                firstName,
+                lastName,
+                username,
+                email,
+                password: newPassword,
+            }
         ) => {
+            // token을 key(서명)를 이용하여 해독함.
+            const { id } = await jwt.verify(token, process.env.SECRET_KEY);
             let uglyPassword = null;
             if (newPassword) {
                 uglyPassword = await bcrypt.hash(newPassword, 10);
@@ -14,7 +24,7 @@ export default {
             const updatedUser = await client.user.update({
                 where: {
                     // todo: validate real id
-                    id: 3,
+                    id,
                 },
                 data: {
                     firstName,
