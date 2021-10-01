@@ -1,3 +1,4 @@
+import { createWriteStream } from "fs";
 import bcrypt from "bcrypt";
 import client from "../../client";
 import { protectedResolver } from "../users.utils";
@@ -23,8 +24,11 @@ export default {
                 { loggedInUser }
             ) => {
                 const { filename, createReadStream } = await avatar;
-                const stream = createReadStream();
-                console.log(stream);
+                const readStream = createReadStream();
+                const writeStream = createWriteStream(
+                    `${process.cwd()}/uploads/${filename}`
+                );
+                readStream.pipe(writeStream);
                 let uglyPassword = null;
                 if (newPassword) {
                     uglyPassword = await bcrypt.hash(newPassword, 10);
@@ -40,6 +44,7 @@ export default {
                         username,
                         email,
                         bio,
+                        avatar: "",
                         // &&연산자의 좌항이 true이면, 뒤의 객체가 반환.
                         // 그리고 나서 ...를 이용하여 풀어줌(spread).
                         ...(uglyPassword && { password: uglyPassword }),
