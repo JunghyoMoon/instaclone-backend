@@ -22,7 +22,9 @@ export default {
                 // 모든 resolver가 이용할 수 있는, Apollo가 제공하는 context.
                 { loggedInUser }
             ) => {
-                console.log(avatar);
+                const { filename, createReadStream } = await avatar;
+                const stream = createReadStream();
+                console.log(stream);
                 let uglyPassword = null;
                 if (newPassword) {
                     uglyPassword = await bcrypt.hash(newPassword, 10);
