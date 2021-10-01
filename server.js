@@ -11,7 +11,7 @@ import { getUser } from "./users/users.utils";
 const PORT = process.env.PORT;
 
 const startApolloServer = async (typeDefs, resolvers) => {
-    const server = new ApolloServer({
+    const apollo = new ApolloServer({
         typeDefs,
         resolvers,
         // 모든 resolver에서 token에 접근 가능하도록 context에 넣음.
@@ -25,13 +25,14 @@ const startApolloServer = async (typeDefs, resolvers) => {
         plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
     });
 
-    await server.start();
+    await apollo.start();
 
     const app = express();
 
     app.use(logger("tiny"));
+    app.use("/static", express.static("uploads"));
 
-    server.applyMiddleware({ app });
+    apollo.applyMiddleware({ app });
 
     await new Promise((resolve) => app.listen({ port: PORT }, resolve));
     console.log(`Your server is running on http://localhost:${PORT}/ 🚀`);
