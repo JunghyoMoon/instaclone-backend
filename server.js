@@ -4,10 +4,8 @@ import express from "express";
 import logger from "morgan";
 import { ApolloServer } from "apollo-server-express";
 // 아폴로의 개짓거리를 막고, playground로 직행하게 해주는 플러그인.
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { typeDefs, resolvers } from "./schema";
 import { getUser } from "./users/users.utils";
-import { graphqlUploadExpress } from "graphql-upload";
 
 const PORT = process.env.PORT;
 
@@ -23,7 +21,6 @@ const startApolloServer = async (typeDefs, resolvers) => {
                 loggedInUser: await getUser(req.headers.token),
             };
         },
-        plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
     });
 
     await apollo.start();
@@ -32,7 +29,6 @@ const startApolloServer = async (typeDefs, resolvers) => {
 
     app.use(logger("tiny"));
     app.use("/static", express.static("uploads"));
-    app.use(graphqlUploadExpress());
 
     apollo.applyMiddleware({ app });
 
