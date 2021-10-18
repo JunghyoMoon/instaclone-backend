@@ -17,7 +17,7 @@ export default gql`
         #                   매 request를 받을 때마다 계산되어 정의됨.
         totalFollowing: Int!
         totalFollowers: Int!
-        #isFollowing: Boolean!
-        #isMe: Boolean!
+        isFollowing: Boolean!
+        isMe: Boolean!
     }
 `;
