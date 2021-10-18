@@ -1,3 +1,4 @@
+import { extractExtensionDefinitions } from "@graphql-tools/schema";
 import client from "../client";
 
 export default {
@@ -19,6 +20,19 @@ export default {
                 return false;
             }
             return id === loggedInUser.id;
+        },
+
+        isFollowing: async ({ id }, _, { loggedInUser }) => {
+            if (!loggedInUser) {
+                return false;
+            }
+
+            // 현재 로그인한 유저의 팔로잉 리스트 안에, 현재 '보고 있는' 유저의 username이 들어있는지 확인
+            const ok = await client.user
+                .findUnique({ where: { username: loggedInUser.username } })
+                .following({ where: { id } });
+
+            return ok.length !== 0;
         },
     },
 };
