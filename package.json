@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@babel/cli": "^7.13.10",
-        "@prisma/client": "^2.16.1",
+        "@prisma/client": "^3.3.0",
         "apollo-server": "^2.19.1",
         "apollo-server-express": "^2.19.2",
         "aws-sdk": "^2.839.0",
