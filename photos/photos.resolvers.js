@@ -21,6 +21,14 @@ export default {
         },
     },
     Hashtag: {
+        // query, mutation만 인자를 받을 수 있는 것이 아님.
+        photos: ({ id }, { page }) => {
+            // todo: add pagination
+            return client.hashtag.findUnique({ where: { id } }).photos({
+                take: 9,
+                skip: (page - 1) * 9,
+            });
+        },
         totalPhotos: ({ id }) =>
             client.photo.count({
                 where: {
