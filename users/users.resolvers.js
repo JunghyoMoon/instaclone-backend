@@ -34,5 +34,6 @@ export default {
 
             return ok.length !== 0;
         },
+        photos: ({ id }) => client.user.findUnique({ where: { id } }).photo(),
     },
 };
