@@ -20,4 +20,16 @@ export default {
             });
         },
     },
+    Hashtag: {
+        totalPhotos: ({ id }) =>
+            client.photo.count({
+                where: {
+                    hashtags: {
+                        some: {
+                            id,
+                        },
+                    },
+                },
+            }),
+    },
 };
