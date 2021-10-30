@@ -1,5 +1,6 @@
 import client from "../../client";
 import { protectedResolver } from "../../users/users.utils";
+import { processHashtags } from "../photos.utils";
 
 export default {
     Mutation: {
@@ -12,8 +13,13 @@ export default {
                         id,
                         userId: loggedInUser.id,
                     },
+                    // 외부 관계? 는 가져오지 않기 때문에, 이렇게 참조해 주어야 함.
                     include: {
-                        hashtags: true,
+                        hashtags: {
+                            select: {
+                                hashtag: true,
+                            },
+                        },
                     },
                 });
 
@@ -31,7 +37,7 @@ export default {
                         hashtags: {
                             // 기존에 있던 hashtag들과의 연결 해제(삭제)
                             disconnect: oldPhoto.hashtags,
-                            // todo: generate new hashtags
+                            connectOrCreate: processHashtags(caption),
                         },
                     },
                 });
