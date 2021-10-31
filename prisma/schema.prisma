@@ -56,4 +56,7 @@ model Like {
   userId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // unique constraint 생성. (추가적인 unique한 값?, 얘네들이 중복되면 DB에 저장하지 않음.)
+  @@unique([photoId, userId])
 }
