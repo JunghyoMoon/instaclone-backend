@@ -19,6 +19,7 @@ export default {
                 },
             });
         },
+        likes: ({ id }) => client.like.count({ where: { photoId: id } }),
     },
     Hashtag: {
         // query, mutation만 인자를 받을 수 있는 것이 아님.
