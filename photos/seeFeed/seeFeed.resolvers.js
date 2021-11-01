@@ -27,7 +27,7 @@ export default {
                     // 최신 순으로 보기 위해 내림차순
                     createdAt: "desc",
                 },
-                take: 5,
+                take: 4,
                 skip: lastId ? 1 : 0,
                 ...(lastId && { cursor: { id: lastId } }),
             })
